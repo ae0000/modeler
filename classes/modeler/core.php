@@ -28,7 +28,7 @@ class Modeler_Core extends Model
 	protected $_validation;
 	protected $_validation_error_code = -1;
 	protected $cache;
-	protected $_date_format = '%a, %m %b %Y %k:%i'; // Mon, 02 Feb 2011 1:21
+	protected $_date_format = '%a, %e %b %Y %k:%i'; // Mon, 02 Feb 2011 1:21
 	protected $_dirty; // For vars not in the class, but you need access to
 
 	/**
