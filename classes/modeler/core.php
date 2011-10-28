@@ -212,7 +212,7 @@ class Modeler_Core extends Model
 		}
 	}
 
-	protected function insert_grouped_data(Database_Query_Builder $insert, array $fields)
+	protected function insert_grouped_data(Database_Query_Builder $insert, array $fields, $no_null=FALSE)
 	{
 		// Add the values in grouped data to the insert, then execute
 		$row_values = array();
@@ -223,12 +223,20 @@ class Modeler_Core extends Model
 			{
 				if (array_key_exists($field, $group))
 				{
-					$row_values[] = $group[$field];
+					$value = $group[$field];
 				}
 				else
 				{
-					$row_values[] = $this->$field;
-				}	
+					$value = $this->$field;
+				}
+
+				// If the value is NULL but we do not want to insert nulls, then
+				// insert '' instead
+				if ($no_null AND $value === NULL)
+				{
+					$value = '';
+				}
+				$row_values[] = $value;
 			}
 
 			// Add the values
