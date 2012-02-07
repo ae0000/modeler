@@ -36,7 +36,7 @@ class Modeler_Core extends Model
 	 * Sets up the modeler with the internal fields built from the rules. This
 	 * means that the models will not be able to use any other class variable
 	 * unless it has a defined rule.
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 */
@@ -50,14 +50,14 @@ class Modeler_Core extends Model
 			$this->_messages_name = $this->_table_name;
 		}
 	}
-	
+
 	/**
 	 * Only add the fields rules if it exists in the data OR it
 	 * has a rule of 'not_empty'
 	 */
 	private function add_field_to_validation($rules, $index)
 	{
-		if (array_key_exists($index, $this->_data) 
+		if (array_key_exists($index, $this->_data)
 			OR array_key_exists('not_empty', $rules))
 		{
 			$this->_validation->rules($index, $rules);
@@ -65,9 +65,9 @@ class Modeler_Core extends Model
 	}
 
 	/**
-	 * This will run defined filters on the variables  
-	 * 
-	 * @param array $array_in 
+	 * This will run defined filters on the variables
+	 *
+	 * @param array $array_in
 	 * @access protected
 	 * @return array The filtered data
 	 */
@@ -117,8 +117,8 @@ class Modeler_Core extends Model
 	}
 
 	/**
-	 * This is the function that validates the data in the models  
-	 * 
+	 * This is the function that validates the data in the models
+	 *
 	 * @access public
 	 * @return void
 	 */
@@ -135,19 +135,19 @@ class Modeler_Core extends Model
 		{
 			$this->_validation->rules($field, $value);
 		}
-		
+
 		if ( ! $this->_validation->check())
 		{
 			throw new Modeler_Exception(
-				'Data validation failed', 
+				'Data validation failed',
 				$this->_validation->errors($this->_messages_name),
 				$this->_validation_error_code);
 		}
 	}
 
 	/**
-	 * validate_files  
-	 * 
+	 * validate_files
+	 *
 	 * @access public
 	 * @return void
 	 */
@@ -161,11 +161,11 @@ class Modeler_Core extends Model
 		{
 			$this->_validation->rules($field, $value);
 		}
-		
+
 		if ( ! $this->_validation->check())
 		{
 			throw new Modeler_Exception(
-				'Data validation failed', 
+				'Data validation failed',
 				$this->_validation->errors($this->_messages_name),
 				$this->_validation_error_code);
 		}
@@ -256,15 +256,15 @@ class Modeler_Core extends Model
 	{
 		$this->_callbacks[$field][] = $callback;
 	}
-	
+
 	/**
 	 * Adds 'not_empty' to the input fields rules
 	 *
-	 * @param mixed $required_fields 
-	 * @access protected
+	 * @param mixed $required_fields
+	 * @access public
 	 * @return void
 	 */
-	protected function not_empty($required_fields)
+	public function not_empty($required_fields)
 	{
 		if ( ! is_array($required_fields))
 		{
@@ -277,9 +277,10 @@ class Modeler_Core extends Model
 			{
 				$this->_rules[$field] = array();
 			}
-			
+
 			$this->_rules[$field][]  = array('not_empty');
 		}
+		return $this;
 	}
 
 	/**
@@ -306,7 +307,7 @@ class Modeler_Core extends Model
 	 */
 	public function __set($key, $value)
 	{
-		
+
 		if (in_array($key, $this->_fields))
 		{
 			$this->_data[$key] = $value;
@@ -319,8 +320,8 @@ class Modeler_Core extends Model
 	/**
 	 * This is for data you need access to outside of defined rules. In other
 	 * words its data that will not be validated.
-	 * 
-	 * @param mixed $dirty 
+	 *
+	 * @param mixed $dirty
 	 * @access public
 	 * @return void
 	 */
@@ -328,7 +329,7 @@ class Modeler_Core extends Model
 	{
 		$this->_dirty = $dirty;
 	}
-	
+
 
 	/**
 	 * Gets an array version of the model
@@ -341,8 +342,8 @@ class Modeler_Core extends Model
 	}
 
 	/**
-	 * Use this to set the fields in the modeler  
-	 * 
+	 * Use this to set the fields in the modeler
+	 *
 	 * @param array $data The fields. Eg. array('username' => 'bob');
 	 * @access public
 	 * @return Modeler_Core
@@ -356,10 +357,10 @@ class Modeler_Core extends Model
 
 		return $this;
 	}
-	
+
 	/**
-	 * Sets the files in the modeler to validate  
-	 * 
+	 * Sets the files in the modeler to validate
+	 *
 	 * @param array $data The array of files
 	 * @access public
 	 * @return Modeler_Core
@@ -383,8 +384,8 @@ class Modeler_Core extends Model
 	 *
 	 * Each of the items in the array will be subjected to the validation of the
 	 * class.
-	 * 
-	 * @param array $data 
+	 *
+	 * @param array $data
 	 * @access public
 	 * @return void
 	 */
@@ -439,7 +440,7 @@ class Modeler_Core extends Model
 class Modeler_Exception extends Kohana_Exception
 {
 	public $errors;
-	
+
 	public function __construct($message, array $variables = NULL, $code = 0)
 	{
 		parent::__construct($message, $variables, $code);
