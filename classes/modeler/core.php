@@ -205,6 +205,7 @@ class Modeler_Core extends Model
 			$cleaned_group = array();
 			foreach ($group as $key => $value)
 			{
+				if ( ! isset($this->_data[$key])) continue;
 				$cleaned_group[$key] = $this->_data[$key];
 			}
 
