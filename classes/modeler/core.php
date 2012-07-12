@@ -190,6 +190,7 @@ class Modeler_Core extends Model
 			}
 
 			// Get the keys we need to clear before we begin
+			if ( ! is_array($group)) continue;
 			$keys_to_clear = array_keys($group);
 
 			// Add the data in
